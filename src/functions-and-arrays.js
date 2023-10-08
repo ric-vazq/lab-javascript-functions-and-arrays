@@ -44,18 +44,23 @@ function sum(mixedArr) {
   let sumMixedArr = 0
   for (x = 0; x < mixedArr.length; x++) {
     let varType = typeof mixedArr[x];
-      if (varType === "number") {
-        sumMixedArr += mixedArr[x]; 
+    if (varType === "number") {
+      sumMixedArr += mixedArr[x]; 
+    }
+    else if (varType === "string") {
+      sumMixedArr += mixedArr[x].length;
+    }
+    else if (varType === "boolean" || varType === "undefined" || mixedArr[x] === null) {
+      if (mixedArr[x] === true) {
+        sumMixedArr += 1;
       }
-      else if (varType === "string") {
-        sumMixedArr += mixedArr[x].length;
+      else if (mixedArr[x] === false || mixedArr[x] === undefined || mixedArr[x] === null) {
+        sumMixedArr += 0;
       }
-      else if (varType === "boolean") {
-        switch (varType) {
-          case true:
-            sumMixedArr += 1 
-        }
-      }
+    }
+    else if (varType === "object" || mixedArr[x].isArray === true) {
+      throw new Error("Error: this function doesn't accept nested objects or nested arrays");
+    }
   }
   return sumMixedArr; 
 }
@@ -94,7 +99,15 @@ function averageWordLength(wordsArr) {
  }
 
 // Bonus - Iteration #4.1
-function avg() {}
+function avg(Array) {
+  if (Array.length === 0) {
+    return null; 
+  }
+  else {
+    let sumMixArr = sum(Array);
+    return sumMixArr/Array.length
+}
+}
 
 // Iteration #5: Unique arrays
 const wordsUnique = [
