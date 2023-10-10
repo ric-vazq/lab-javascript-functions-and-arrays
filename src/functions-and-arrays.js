@@ -220,7 +220,45 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function greatestProduct(matrixRect) {
+  if (matrixRect.length === 0) {
+    return null; 
+  }
+  let greatestProductHorizontal = 0;
+  let greatestProductHorizontalNumbers = []
+  for (let x = 0; x < matrixRect.length; x++) {
+    for (let y = 0; y < matrixRect[x].length; y++) {
+      if (typeof matrixRect[x][y+3] === "number") {
+        let [a, b, c, d] = [matrixRect[x][y], matrixRect[x][y+1], matrixRect[x][y+2], matrixRect[x][y+3]]
+        let ProductFourRow = a * b * c * d
+        if (ProductFourRow >= greatestProductHorizontal) {
+          greatestProductHorizontal = ProductFourRow;
+          greatestProductHorizontalNumbers = [a, b, c,d]
+        } 
+      }
+    }
+  }
+  let greatestProductVertical = 0;
+  let greatestProductVerticalNumbers = []
+  for (let z = 0; z < matrixRect[0].length; z++) { // 20
+    for (let w = 0; w < matrixRect.length; w++) { // 20
+      if (typeof matrixRect[w+3] !== 'undefined' && typeof matrixRect[w+3][z] === "number") {
+        let [a, b, c, d] = [matrixRect[w][z], matrixRect[w+1][z], matrixRect[w+2][z], matrixRect[w+3][z]];
+        let ProductFourColumn = a * b * c * d
+        if (ProductFourColumn >= greatestProductVertical) {
+          greatestProductVertical = ProductFourColumn;
+          greatestProductVerticalNumbers = [a, b, c,d]
+        }
+      }
+    }
+  }
+  if (greatestProductHorizontal >= greatestProductVertical) {
+    return greatestProductHorizontalNumbers;
+  }
+  else {
+    return greatestProductVerticalNumbers;
+  }
+}
 
 
 
